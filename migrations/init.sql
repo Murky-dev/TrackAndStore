@@ -9,7 +9,7 @@ CREATE TYPE entity_type AS ENUM (
 CREATE TABLE IF NOT EXISTS Entities (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     parent_id INT REFERENCES Entities(id),
-    entity_name TEXT NOT NULL,
+    name TEXT NOT NULL,
     entity_type entity_type NOT NULL,
     description TEXT,
     CHECK (
