@@ -6,9 +6,9 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "up": "node ./src/service/migrations/up.js",
-    "down": "node ./src/service/migrations/down.js",
-    "reset": "node ./src/service/migrations/reset.js"
+    "migrate:up": "node ./src/service/migrations/up.js",
+    "migrate:down": "node ./src/service/migrations/down.js",
+    "migrate:reset": "node ./src/service/migrations/reset.js"
   },
   "repository": {
     "type": "git",

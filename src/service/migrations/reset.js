@@ -1,13 +1,7 @@
-import down from "./down";
-import up from "./up";
-
-
-async function resetDB() {
-  down()
-  up()
-}
-
-
-resetDB()
-export default resetDB
+import sql from "../db.js";
+import { up, down } from "./migrations.js";
+await down();
+await up();
+await sql.end();
+process.exit(0);
 
