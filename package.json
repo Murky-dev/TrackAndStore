@@ -3,8 +3,12 @@
   "version": "0.0.1",
   "description": "The API for interacting with the TrackAndStore database",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "up": "node ./src/service/migrations/up.js",
+    "down": "node ./src/service/migrations/down.js",
+    "reset": "node ./src/service/migrations/reset.js"
   },
   "repository": {
     "type": "git",
@@ -20,6 +24,7 @@
     "jest": "^30.2.0"
   },
   "dependencies": {
+    "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "postgres": "^3.4.7"
   }
