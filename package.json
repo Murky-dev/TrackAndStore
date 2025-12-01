@@ -1,0 +1,26 @@
+{
+  "name": "trackandstore-api",
+  "version": "0.0.1",
+  "description": "The API for interacting with the TrackAndStore database",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Murky-dev/TrackAndStore.git"
+  },
+  "author": "Murky-dev",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Murky-dev/TrackAndStore/issues"
+  },
+  "homepage": "https://github.com/Murky-dev/TrackAndStore#readme",
+  "devDependencies": {
+    "jest": "^30.2.0"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "postgres": "^3.4.7"
+  }
+}
