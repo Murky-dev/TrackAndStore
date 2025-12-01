@@ -8,7 +8,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "migrate:up": "node ./src/service/migrations/up.js",
     "migrate:down": "node ./src/service/migrations/down.js",
-    "migrate:reset": "node ./src/service/migrations/reset.js"
+    "migrate:reset": "node ./src/service/migrations/reset.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "repository": {
     "type": "git",
@@ -21,7 +23,13 @@
   },
   "homepage": "https://github.com/Murky-dev/TrackAndStore#readme",
   "devDependencies": {
-    "jest": "^30.2.0"
+    "@eslint/js": "^9.39.1",
+    "@eslint/json": "^0.14.0",
+    "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^16.5.0",
+    "jest": "^30.2.0",
+    "prettier": "3.7.3"
   },
   "dependencies": {
     "dotenv": "^17.2.3",

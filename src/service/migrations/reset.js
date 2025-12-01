@@ -4,4 +4,3 @@ await down();
 await up();
 await sql.end();
 process.exit(0);
-
