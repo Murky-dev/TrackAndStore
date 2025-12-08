@@ -4,12 +4,16 @@
   "description": "The API for interacting with the TrackAndStore database",
   "main": "index.js",
   "type": "module",
+  "imports": {
+    "#utils/*": "./src/utils/*",
+    "#src/*": "./src/*"
+  },
   "scripts": {
     "test": "node --experimental-vm-modules node_modules/.bin/jest",
-    "migrate:up": "node ./src/service/migrations/up.js",
-    "migrate:down": "node ./src/service/migrations/down.js",
-    "migrate:reset": "node ./src/service/migrations/reset.js",
-    "run": "node ./src/service/entities.js",
+    "migrate:up": "node ./migrations/javascript/up.js",
+    "migrate:down": "node ./migrations/javascript/down.js",
+    "migrate:reset": "node ./migrations/javascript/reset.js",
+    "run": "node ./src/service/EntityService.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
