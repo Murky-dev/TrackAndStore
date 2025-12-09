@@ -7,18 +7,20 @@ const allowedFields = ["name", "parent_id", "entity_type", "description"];
 //#region Create
 
 /**
- * Creates a entity record in entities table for a given CreateEntityDTO .
- * CreateEntityDTO {
- * name: required String
- * parent_id: optional int
- * enitty_type: required "item,container,person,location" see EntityTypeEnum in models.js
- * description: Optional String
- * }
+ * Creates a database record for given CreateEntityDTO.
+ * @param {Object} createEntityDTO
+ * @param {string} createEntityDTO.name name of Entity to be created.
+ * @param {number} [createEntityDTO.parent_id] id of parent entity if required.
+ * @param {("item"|"container"|"location"|"person")} createEntityDTO.entity_type type of Entity to be created.
+ * @param {string} [CreateEntityDTO.description] description of entity to be created.
+ * @async
+ * @throws {Error} throws error if CreateEntityDTO is missing required fields or a database error occurs.
+ * @example let entityrecord = CreateEntity({name: "Kitkat", parent_id: 1, entity_type: "item", });
  */
-export async function createEntity(createDTO) {
+export async function createEntity(createEntityDTO) {
   try {
-    createDTO = filterObject(createDTO, allowedFields);
-    return await sql`INSERT INTO entities ${sql(createDTO)}`;
+    createEntityDTO = filterObject(createEntityDTO, allowedFields);
+    return await sql`INSERT INTO entities ${sql(createEntityDTO)}`;
   } catch (e) {
     console.error(e);
   }
@@ -26,6 +28,10 @@ export async function createEntity(createDTO) {
 //#endregion
 
 //#region Read
+
+/**
+ * Returns all records from the entities table.
+ */
 export async function getEntities() {
   try {
     return await sql`SELECT * FROM entities`;
@@ -34,6 +40,12 @@ export async function getEntities() {
   }
 }
 
+/**
+ * Returns matching database record from entities table if a record with given id exists.
+ * @param {number} id id of entity record to be fetched.
+ * @async
+ * @throws {Error} throws error if there is no database record for given id.
+ */
 export async function getEntityById(id) {
   try {
     return await sql`SELECT * FROM entities WHERE id = ${id}`;
@@ -42,7 +54,10 @@ export async function getEntityById(id) {
   }
 }
 
-export async function getEntityByParentID(parent_id) {
+/** Returns all entities with matching parent container, likely to be replaced with a view in future.
+ * @param {number} parent_id id of parent entity.
+ */
+export async function GetEntitiesByParentID(parent_id) {
   try {
     return await sql`SELECT * FROM entities where parent_id = ${parent_id}`;
   } catch (e) {
@@ -50,7 +65,10 @@ export async function getEntityByParentID(parent_id) {
   }
 }
 
-export async function getEntityByName(name) {
+/** Returns records with given name from entities table of database.
+ * @param {string} name name of entity to be fetched.
+ */
+export async function getEntitiesByName(name) {
   try {
     return await sql`SELECT * from entities WHERE name LIKE ${name} `;
   } catch (e) {
@@ -60,13 +78,18 @@ export async function getEntityByName(name) {
 //#endregion
 
 //#region Update
+
 /**
- *updateDTO {
-    name: string
-    parent_id: number
-    entity_type: EntityType {"item","location","person","container"}
-    description: string
-  }
+ * Updates fields of database record for the entity with given id.
+ * @param {number} id  id for entity to be updated.
+ * @param {Object} updateDTO
+ * @param {string} [updateDTO.name] name of entity
+ * @param {number} [updateDTO.parent_id] id of new parent entity.
+ * @param {"item" | "container" | "location" | "person"} [updateDTO.entity_type] new entity_type for entity.
+ * @param {string} [updateDTO.description] new description for entity
+ * @async
+ * @returns Record of updated entity.
+ * @throws {Error} throws error if a database error occurs
  */
 export async function patchEntity(id, updateDTO) {
   updateDTO = filterObject(updateDTO, allowedFields);
@@ -76,6 +99,11 @@ export async function patchEntity(id, updateDTO) {
 //#endregion
 
 //#region Delete
+
+/**
+ * @param {number} id id of record to be deleted from entities table of database.
+ * @async
+ */
 export async function deleteEntity(id) {
   try {
     return await sql`DELETE FROM entities WHERE id = ${id}`;
