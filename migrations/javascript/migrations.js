@@ -1,4 +1,4 @@
-import sql from "../db.js";
+import sql from "#utils/db.js";
 export async function down() {
   try {
     process.stdout.write("Dropping tables and types...");
