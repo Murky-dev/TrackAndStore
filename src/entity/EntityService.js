@@ -34,7 +34,6 @@ export async function createEntity(createEntityDTO) {
  * @param {number} id id of entity record to be fetched.
  * @async
  * @throws {Error} throws error if there is no database record for given id.
- * @deprecated
  */
 export async function getEntityById(id) {
   try {
