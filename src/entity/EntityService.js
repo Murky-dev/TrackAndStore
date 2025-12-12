@@ -1,5 +1,5 @@
-import sql from "../utils/db.js";
-import { filterObject } from "../utils/utils.js";
+import sql from "#utils/db.js";
+import { filterObject } from "#utils/utils.js";
 
 // used for creating and patching an Entity.
 const allowedFields = ["name", "parent_id", "entity_type", "description"];
