@@ -13,7 +13,7 @@
     "migrate:up": "node ./migrations/javascript/up.js",
     "migrate:down": "node ./migrations/javascript/down.js",
     "migrate:reset": "node ./migrations/javascript/reset.js",
-    "run": "node ./src/service/EntityService.js",
+    "express:up": "node ./src/server",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
