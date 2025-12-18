@@ -7,6 +7,10 @@ import {
   patchEntity,
 } from "./EntityService.js";
 export const entityRouter = express.Router();
+const ERRORMESSAGE = {
+  Status: "Error",
+  Message: "Error occured check request",
+};
 
 //#region GET
 
@@ -16,7 +20,7 @@ entityRouter.get("/", async (req, res) => {
     res.json(entities);
   } catch (e) {
     console.error(e);
-    res.status(400).send("Error occurred in request");
+    res.status(400).json(ERRORMESSAGE);
   }
 });
 
@@ -26,7 +30,7 @@ entityRouter.get("/:id", async (req, res) => {
     res.json(entity);
   } catch (e) {
     console.error(e);
-    res.status(400).send("Error in request.");
+    res.status(400).json(ERRORMESSAGE);
   }
 });
 
@@ -36,21 +40,21 @@ entityRouter.get("/:id", async (req, res) => {
 
 entityRouter.post("/", async (req, res) => {
   try {
-    await createEntity(req.body);
-    res.status(201).send("Entity created.");
+    let result = await createEntity(req.body);
+    res.status(200).json(result);
   } catch (e) {
     console.error(e);
-    res.status(400).send("Error occurred.");
+    res.status(400).json(ERRORMESSAGE);
   }
 });
 
 entityRouter.patch("/:id", async (req, res) => {
   try {
     await patchEntity(req.params.id, req.body);
-    res.status(200).send("Updated Entity.");
+    res.status(204).send();
   } catch (e) {
     console.error(e);
-    res.status(400).send("Error occurred check request body and ID.");
+    res.status(400).json(ERRORMESSAGE);
   }
 });
 
@@ -60,10 +64,10 @@ entityRouter.patch("/:id", async (req, res) => {
 entityRouter.delete("/:id", async (req, res) => {
   try {
     await deleteEntity(req.params.id);
-    res.status(204).send("Deleted Entity");
+    res.status(204).send();
   } catch (e) {
     console.error(e);
-    res.status(400).send("Error occurred");
+    res.status(400).json(ERRORMESSAGE);
   }
 });
 //#endregion
