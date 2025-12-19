@@ -13,8 +13,11 @@
     "migrate:up": "node ./migrations/javascript/up.js",
     "migrate:down": "node ./migrations/javascript/down.js",
     "migrate:reset": "node ./migrations/javascript/reset.js",
+    "express:up": "node ./src/server",
+    "service:test": "node ./src/entity/EntityService.js",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "start": "node ./src/server"
   },
   "repository": {
     "type": "git",
@@ -36,6 +39,7 @@
     "prettier": "3.7.3"
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "postgres": "^3.4.7"

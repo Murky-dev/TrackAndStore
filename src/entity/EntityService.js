@@ -20,7 +20,7 @@ const allowedFields = ["name", "parent_id", "entity_type", "description"];
 export async function createEntity(createEntityDTO) {
   try {
     createEntityDTO = filterObject(createEntityDTO, allowedFields);
-    return await sql`INSERT INTO entities ${sql(createEntityDTO)}`;
+    return await sql`INSERT INTO entities ${sql(createEntityDTO)} RETURNING *`;
   } catch (e) {
     console.error(e);
   }
@@ -34,35 +34,10 @@ export async function createEntity(createEntityDTO) {
  * @param {number} id id of entity record to be fetched.
  * @async
  * @throws {Error} throws error if there is no database record for given id.
- * @deprecated
  */
 export async function getEntityById(id) {
   try {
     return await sql`SELECT * FROM entities WHERE id = ${id}`;
-  } catch (e) {
-    console.error(e);
-  }
-}
-
-/** Returns all entities with matching parent container, likely to be replaced with a view in future.
- * @param {number} parent_id id of parent entity.
- * @deprecated
- */
-export async function GetEntitiesByParentID(parent_id) {
-  try {
-    return await sql`SELECT * FROM entities WHERE parent_id = ${parent_id}`;
-  } catch (e) {
-    console.error(e);
-  }
-}
-
-/** Returns records with given name from entities table of database.
- * @param {string} name name of entity to be fetched.
- * @deprecated
- */
-export async function getEntitiesByName(name) {
-  try {
-    return await sql`SELECT * FROM entities WHERE name LIKE ${name}`;
   } catch (e) {
     console.error(e);
   }
