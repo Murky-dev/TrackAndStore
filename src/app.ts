@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import { entityRouter } from "./entity/EntityRouter";
+import { migrationRouter } from "./migrations/MigrationRouter";
 export const app = express();
 
 const corsOptions = {
@@ -13,3 +14,4 @@ const corsOptions = {
 app.use(express.json());
 app.use(cors(corsOptions));
 app.use("/api/v1/entities", entityRouter);
+app.use("/dev/v1/migrations", migrationRouter);
