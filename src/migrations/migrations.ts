@@ -2,10 +2,10 @@ import { sql } from "../utils/db";
 
 export async function down() {
   try {
-    process.stdout.write("Dropping tables and types...");
+    process.stdout.write("Dropping tables and types...\n");
     await sql`DROP TABLE IF EXISTS Entities CASCADE`;
     await sql`DROP TYPE IF EXISTS entity_type CASCADE`;
-    process.stdout.write("Done...");
+    process.stdout.write("Done...\n");
   } catch (e) {
     console.error(e);
   }
@@ -13,7 +13,7 @@ export async function down() {
 
 export async function up() {
   try {
-    process.stdout.write("Creating tables and types...");
+    process.stdout.write("Creating tables and types...\n");
     await sql`CREATE TYPE entity_type AS ENUM (
     'item', 
     'container',
@@ -36,8 +36,13 @@ export async function up() {
         parent_id is null OR parent_id != id
     )
 )`;
-    process.stdout.write("Done ...");
+    process.stdout.write("Done ...\n");
   } catch (e) {
     console.error(e);
   }
+}
+
+export async function reset() {
+  await down();
+  await up();
 }
