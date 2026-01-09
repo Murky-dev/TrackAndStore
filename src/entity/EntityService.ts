@@ -11,13 +11,9 @@ import * as z from "zod";
 //#region Create
 
 export async function createEntity(input: CreateEntityDTO) {
-  const validatedInput = CreateEntitySchema.safeParse(input);
-  if (!validatedInput.success) {
-    throw new Error("Invalid input");
-  }
+  input = CreateEntitySchema.parse(input);
   try {
-    const result =
-      await sql`INSERT INTO entities ${sql(validatedInput.data)} RETURNING *`;
+    const result = await sql`INSERT INTO entities ${sql(input)} RETURNING *`;
     if (result.length == 1) {
       return result[0];
     }

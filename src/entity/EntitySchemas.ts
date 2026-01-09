@@ -8,17 +8,20 @@ export const EntityTypeSchema = z.union([
 ]);
 
 export const IDSchema = z.preprocess((input) => {
-  // Transform the input to a number if it's a string
-  return typeof input === "string" ? parseFloat(input) : input;
+  return typeof input === "string" ? parseInt(input) : input;
 }, z.number());
+
+export const ParentIDSchema = z.preprocess((input) => {
+  return typeof input === "string" ? parseInt(input) : input;
+}, z.number().nullish());
 
 export type EntityType = z.infer<typeof EntityTypeSchema>;
 
 export const CreateEntitySchema = z.object({
   name: z.string(),
-  parent_id: IDSchema,
+  parent_id: ParentIDSchema,
   entity_type: EntityTypeSchema,
-  description: z.string().nullable(),
+  description: z.string().nullish(),
 });
 
 export const EntitySearchSchema = CreateEntitySchema.partial();
