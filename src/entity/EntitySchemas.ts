@@ -7,11 +7,16 @@ export const EntityTypeSchema = z.union([
   z.literal("person"),
 ]);
 
+export const IDSchema = z.preprocess((input) => {
+  // Transform the input to a number if it's a string
+  return typeof input === "string" ? parseFloat(input) : input;
+}, z.number());
+
 export type EntityType = z.infer<typeof EntityTypeSchema>;
 
 export const CreateEntitySchema = z.object({
   name: z.string(),
-  parent_id: z.number().nullable(),
+  parent_id: IDSchema,
   entity_type: EntityTypeSchema,
   description: z.string().nullable(),
 });

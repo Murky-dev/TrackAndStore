@@ -76,7 +76,7 @@ export async function getEntities(entitySearchDTO: EntitySearchDTO) {
 //#endregion
 
 //#region UPDATE
-async function patchEntity(id: number, entityPatchDTO: EntityPatchDTO) {
+export async function patchEntity(id: number, entityPatchDTO: EntityPatchDTO) {
   let validatedID = z.number().safeParse(id);
   let validatedInput = EntitySearchSchema.safeParse(entityPatchDTO);
   if (!validatedID.success || !validatedInput.success) {
