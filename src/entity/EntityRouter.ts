@@ -12,6 +12,10 @@ const ERRORMESSAGE = {
   Status: "Error",
   Message: "Error occured check request",
 };
+const ENTITYNOTFOUND = {
+  Status: "Error",
+  Message: "Error not found for provided id",
+};
 
 //#region GET
 entityRouter.get("/", async (req, res) => {
@@ -26,9 +30,13 @@ entityRouter.get("/", async (req, res) => {
 
 entityRouter.get("/:id", async (req, res) => {
   try {
-    const id = IDSchema.parse(req.params.id);
+    let id = parseInt(req.params.id);
     const result = await getEntityById(id);
-    res.status(200).json(result);
+    if (result?.length === 1) {
+      res.status(200).json(result);
+    } else {
+      res.status(404).json(ENTITYNOTFOUND);
+    }
   } catch (e) {
     console.error(e);
     res.status(400).json(ERRORMESSAGE);
