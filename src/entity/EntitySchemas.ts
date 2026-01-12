@@ -15,8 +15,6 @@ export const ParentIDSchema = z.preprocess((input) => {
   return typeof input === "string" ? parseInt(input) : input;
 }, z.number().nullish());
 
-export type EntityType = z.infer<typeof EntityTypeSchema>;
-
 export const CreateEntitySchema = z.object({
   name: z.string(),
   parent_id: ParentIDSchema,
@@ -29,3 +27,4 @@ export const EntitySearchSchema = CreateEntitySchema.partial();
 export type CreateEntityDTO = z.infer<typeof CreateEntitySchema>;
 export type EntitySearchDTO = z.infer<typeof EntitySearchSchema>;
 export type EntityPatchDTO = EntitySearchDTO;
+export type EntityType = z.infer<typeof EntityTypeSchema>;

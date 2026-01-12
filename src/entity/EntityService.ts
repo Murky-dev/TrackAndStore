@@ -5,6 +5,7 @@ import {
   type EntitySearchDTO,
   type EntityPatchDTO,
   EntitySearchSchema,
+  IDSchema,
 } from "./EntitySchemas";
 import * as z from "zod";
 
@@ -26,7 +27,7 @@ export async function createEntity(input: CreateEntityDTO) {
 
 //#region Read
 export async function getEntityById(id: number) {
-  const validatedInput = z.number().safeParse(id);
+  const validatedInput = IDSchema.safeParse(id);
   if (!validatedInput.success) {
     throw new Error("Invalid input");
   }
@@ -34,9 +35,6 @@ export async function getEntityById(id: number) {
   try {
     const result =
       await sql`SELECT * FROM entities WHERE id = ${validatedInput.data}`;
-    if (result.length === 1) {
-      return result[0];
-    }
     return result;
   } catch (e) {
     console.error(e);
